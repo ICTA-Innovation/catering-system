@@ -37,7 +37,7 @@ Author URL: http://www.themeforest.net/user/pixinvent
                       icon="icon icon-user"
                       icon-pack="feather"
                       label-placeholder="firstname"
-                      v-model="Firstname"
+                      v-model="firstName"
                       class="w-full"/>
 
                   <vs-input
@@ -49,7 +49,7 @@ Author URL: http://www.themeforest.net/user/pixinvent
                       icon="icon icon-user"
                       icon-pack="feather"
                       label-placeholder="lastname"
-                      v-model="Firstname"
+                      v-model="lastName"
                       class="w-full"/>
 
                   <vs-input
@@ -60,7 +60,7 @@ Author URL: http://www.themeforest.net/user/pixinvent
                       icon="icon icon-phone"
                       icon-pack="feather"
                       label-placeholder="phone"
-                      v-model="Phone"
+                      v-model="phone"
                       class="w-full"/>
 
                   <vs-input
@@ -107,11 +107,12 @@ Author URL: http://www.themeforest.net/user/pixinvent
 export default {
   data () {
     return {
-      displayName: '',
-      email: '',
+      firstName: '',
+      lastName: '',
+      phone: '',
       password: '',
       confirm_password: '',
-      isTermsConditionAccepted: true
+      // isTermsConditionAccepted: true
     }
   },
   computed: {
