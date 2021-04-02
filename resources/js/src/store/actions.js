@@ -7,6 +7,8 @@
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
+import jwt from '../http/requests/auth/jwt/index.js'
+
 const actions = {
 
   // /////////////////////////////////////////////
@@ -48,7 +50,33 @@ const actions = {
 
   updateUserInfo ({ commit }, payload) {
     commit('UPDATE_USER_INFO', payload)
+  },
+
+  registerUserJWT ({ commit }, payload) {
+
+    const { firstName, lastName, phone, password, confirmPassword } = payload.userDetails
+
+    return new Promise((resolve, reject) => {
+
+      // Check confirm password
+      if (password !== confirmPassword) {
+        reject({message: 'Password doesn\'t match. Please try again.'})
+      }
+
+      jwt.registerUser(firstName, lastName, phone, password)
+        .then(response => {
+          // Redirect User
+          router.push(router.currentRoute.query.to || '/')
+
+          // Update data in localStorage
+          localStorage.setItem('accessToken', response.data.accessToken)
+          commit('UPDATE_USER_INFO', response.data.userData, {root: true})
+
+          resolve(response)
+        })
+        .catch(error => { reject(error) })
+    })
   }
 }
 
-export default actions
+export default actions 

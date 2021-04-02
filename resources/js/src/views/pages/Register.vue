@@ -30,8 +30,6 @@ Author URL: http://www.themeforest.net/user/pixinvent
 
                 <div>
                   <vs-input
-                      v-validate="'required|alpha'"
-                      data-vv-validate-on="blur"
                       name="firstname"
                       icon-no-border
                       icon="icon icon-user"
@@ -41,9 +39,7 @@ Author URL: http://www.themeforest.net/user/pixinvent
                       class="w-full"/>
 
                   <vs-input
-                      v-validate="'required|alpha'"
                       type="text"
-                      data-vv-validate-on="blur"
                       name="lastname"
                       icon-no-border
                       icon="icon icon-user"
@@ -53,8 +49,6 @@ Author URL: http://www.themeforest.net/user/pixinvent
                       class="w-full"/>
 
                   <vs-input
-                      v-validate="'required|numeric'"
-                      data-vv-validate-on="blur"
                       name="phone"
                       icon-no-border
                       icon="icon icon-phone"
@@ -78,7 +72,6 @@ Author URL: http://www.themeforest.net/user/pixinvent
                       type="password"
                       name="confirm_password"
                       icon-no-border
-                      data-vv-validate-on="blur"
                       data-vv-as="password"   
                       icon="icon icon-lock"
                       icon-pack="feather"
@@ -91,7 +84,7 @@ Author URL: http://www.themeforest.net/user/pixinvent
                   <vs-button class="float-right"  @click="registerUser">Register</vs-button>
                   </div>
                   <vs-button  type="border">Login</vs-button>
-                  <vs-button class="float-right"  @click="registerUser">Register</vs-button>
+                  <vs-button class="float-right"  @click="registerUserJWT">Register</vs-button>
                 </div>
 
               </div>
@@ -117,7 +110,7 @@ export default {
   },
   computed: {
     validateForm () {
-      return !this.errors.any() && this.displayName !== '' && this.email !== '' && this.password !== '' && this.confirm_password !== '' && this.isTermsConditionAccepted === true
+      // return !this.errors.any() && this.firstName !== '' && this.lastName !== '' && this.phone !== '' && this.password !== '' && this.confirm_password !== ''
     }
   },
   methods: {
@@ -140,20 +133,21 @@ export default {
       }
       return true
     },
-    registerUserJWt () {
+    registerUserJWT() {
       // If form is not validated or user is already login return
-      if (!this.validateForm || !this.checkLogin()) return
-
+      // if (!this.validateForm || !this.checkLogin()) return
+      
       const payload = {
         userDetails: {
-          displayName: this.displayName,
-          email: this.email,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          phone: this.phone,
           password: this.password,
           confirmPassword: this.confirm_password
         },
         notify: this.$vs.notify
       }
-      this.$store.dispatch('auth/registerUserJWT', payload)
+      this.$store.dispatch('registerUserJWT', payload)
     }
   }
 }

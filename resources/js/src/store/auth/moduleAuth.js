@@ -1,6 +1,6 @@
 /*=========================================================================================
-  File Name: store.js
-  Description: Vuex store
+  File Name: moduleAuth.js
+  Description: Auth Module
   ----------------------------------------------------------------------------------------
   Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
   Author: Pixinvent
@@ -8,22 +8,15 @@
 ==========================================================================================*/
 
 
-import Vue from 'vue'
-import Vuex from 'vuex'
+import state from './moduleAuthState.js'
+import mutations from './moduleAuthMutations.js'
+import actions from './moduleAuthActions.js'
+import getters from './moduleAuthGetters.js'
 
-import state from './state'
-import getters from './getters'
-import mutations from './mutations'
-import actions from './actions'
-
-
-Vue.use(Vuex)
-
-
-export default new Vuex.Store({
-  getters,
-  mutations,
+export default {
+  namespaced: true,
   state,
+  mutations,
   actions,
-  strict: process.env.NODE_ENV !== 'production'
-})
+  getters
+}

@@ -5,3 +5,7 @@
  */
 
 import './src/main.js'
+
+const app = new vue ({
+    store
+});

@@ -54,7 +54,7 @@
                       <vs-checkbox v-model="checkbox_remember_me" class="mb-3">Remember Me</vs-checkbox>
                       <router-link to="">Forgot Password?</router-link>
                   </div>
-                  <vs-button  type="border">Login</vs-button>
+                  <vs-button class="float-right"  @click="loginUser">Login</vs-button>
                   <vs-button class="float-right"  @click="registerUser">Register</vs-button>
                 </div>
 
@@ -71,7 +71,7 @@
 export default{
   data () {
     return {
-      email: '',
+      phone: '',
       password: '',
       checkbox_remember_me: false
     }
@@ -81,7 +81,20 @@ export default{
       if (!this.checkLogin()) return
       this.$router.push('/pages/register').catch(() => {})
     }
-  }
+  },
+      loginUser() {
+      // If form is not validated or user is already login return
+      if (!this.validateForm || !this.checkLogin()) return
+      
+      const payload = {
+        userDetails: {
+          phone: this.phone,
+          password: this.password,
+        },
+        notify: this.$vs.notify
+      }
+      this.$store.dispatch('login', payload)
+    }
 }
 
 
