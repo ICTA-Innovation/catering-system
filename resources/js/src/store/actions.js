@@ -51,9 +51,37 @@ const actions = {
   updateUserInfo ({ commit }, payload) {
     commit('UPDATE_USER_INFO', payload)
   },
+  login ({ commit }, payload) {
+    console.log("actions.js");
+    return new Promise((resolve, reject) => {
+      jwt.login(payload.userDetails.phone, payload.userDetails.password)
+        .then(response => {
 
+          // If there's user data in response
+          if (response.data.userData) {
+            // Navigate User to homepage
+            router.push(router.currentRoute.query.to || '/')
+
+            // Set accessToken
+            localStorage.setItem('accessToken', response.data.accessToken)
+
+            // Update user details
+            commit('UPDATE_USER_INFO', response.data.userData, {root: true})
+
+            // Set bearer token in axios
+            commit('SET_BEARER', response.data.accessToken)
+
+            resolve(response)
+          } else {
+            reject({message: 'Wrong Phone or Password'})
+          }
+
+        })
+        .catch(error => { reject(error) })
+    })
+  },
   registerUserJWT ({ commit }, payload) {
-
+    console.log("actions.js");
     const { firstName, lastName, phone, password, confirmPassword } = payload.userDetails
 
     return new Promise((resolve, reject) => {

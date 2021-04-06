@@ -45,12 +45,13 @@ export default {
     })
   },
   login (phone, pwd) {
-    return axios.post('/api/auth/login', {
+    axios.post('/api/auth/login', {
       phone,
       password: pwd
     })
   },
   registerUser (firstName, lastName, phone, pwd) {
+    console.log("index.js");
     axios.post('/api/auth/register', {
       firstName,
       lastName,

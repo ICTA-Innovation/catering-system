@@ -80,12 +80,13 @@ export default{
     registerUser () {
       if (!this.checkLogin()) return
       this.$router.push('/pages/register').catch(() => {})
-    }
-  },
+    },
       loginUser() {
       // If form is not validated or user is already login return
-      if (!this.validateForm || !this.checkLogin()) return
-      
+         console.log("loginUser1");
+      // if (!this.validateForm || !this.checkLogin()) 
+      // return
+      console.log("loginUser2");
       const payload = {
         userDetails: {
           phone: this.phone,
@@ -94,7 +95,9 @@ export default{
         notify: this.$vs.notify
       }
       this.$store.dispatch('login', payload)
+      console.log("loginUser3");
     }
+  }
 }
 
 

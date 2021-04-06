@@ -330,7 +330,7 @@ export default {
     })
   },
   registerUserJWT ({ commit }, payload) {
-
+    console.log("moduleAuthActions.js");
     const { firstName, lastName, phone, password, confirmPassword } = payload.userDetails
 
     return new Promise((resolve, reject) => {

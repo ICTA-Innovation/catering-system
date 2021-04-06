@@ -23,8 +23,8 @@ class AuthController extends Controller
             'firstName' => 'required|string',
             'lastName' => 'required|string',
             'phone'=>'required|string|unique:users',
-            'password'=>'required|string'
-            // 'c_password' => 'required|same:password'
+            'password'=>'required|string',
+            'c_password' => 'required|same:password'
         ]);
 
         $user =  new User([
@@ -63,8 +63,8 @@ class AuthController extends Controller
             'message' => 'Unauthorized'
         ],401);
         }
-
-        $user = $request->user();
+        $user = Auth::user();
+        // $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->plainTextToken;
 
